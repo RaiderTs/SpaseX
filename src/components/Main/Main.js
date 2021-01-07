@@ -11,9 +11,9 @@ const video = {
 function Main({ rocket }) {
   return (
     <section className="main">
-      <h1 className="title">{rocket}</h1>
+      <h1 className="title">{rocket ? rocket : "Календарь SpaseX"}</h1>
 
-      <div className="video-container">
+      {rocket && <div className="video-container">
         <video
           className="video"
           autoPlay
@@ -24,7 +24,7 @@ function Main({ rocket }) {
             video.hasOwnProperty(rocket) ? video[rocket] : video.other
           }.mp4`}
         ></video>
-      </div>
+      </div>}
     </section>
   );
 }

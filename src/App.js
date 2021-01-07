@@ -1,12 +1,16 @@
 import React from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+
 
 import "./style.css";
 import Header from "./components/Header/Header";
+import Home from "./components/Home/Home";
 import Main from "./components/Main/Main";
+import Calendar from "./components/Calendar/Calendar";
+import Details from "./components/Details/Details";
 import Features from "./components/Features/Features";
 import Footer from "./components/Footer/Footer";
-// import Calendar from "./components/Calendar/Calendar";
-// import Details from "./components/Details/Details";
+
 import FetchData from "../src/service/FetchData";
 
 class App extends React.Component {
@@ -16,12 +20,14 @@ class App extends React.Component {
     rocket: "Falcon 1",
     rocketFeatures: null,
     rockets: [],
+    company: null,
   };
 
   componentDidMount() {
     // console.log(this.fetchData.getCompany);    // Возвращает промис
     // this.fetchData.getCompany().then(data => console.log(data))
     this.updateRocket();
+    this.updateCompany();
   }
 
   updateRocket() {
@@ -46,19 +52,43 @@ class App extends React.Component {
     );
   };
 
+  updateCompany = () => {
+    this.fetchData.getCompany().then((company) => this.setState({ company }));
+  };
+
   render() {
     console.log(this.state);
     return (
-      <>
+      <BrowserRouter>
         <Header rockets={this.state.rockets} changeRocket={this.changeRocket} />
-        <Main rocket={this.state.rocket} />
-        <Features rocket={this.state.rocketFeatures} />
-        {/* <Calendar /> */}
-        <Footer />
+        {/* Когда приходим на страницу отображаем главную. Внутри указываем какую страницу хотим отобразить */}
+        <Route exact path="/">
+          {this.state.company && <Home company={this.state.company} />}
+        </Route>
+
+        <Route path="/rocket">
+          <Main rocket={this.state.rocket} />
+          {this.state.rocketFeatures && (
+            <Features {...this.state.rocketFeatures} />
+          )}
+        </Route>
+
+        <Route path="/calendar">
+          <Main />
+          <Calendar />
+        </Route>
+
+        <Route path="/details">
+          <Main />
+          <Details />
+        </Route>
+
+        {this.state.company && <Footer {...this.state.company} />}
         {/* <Details /> */}
-      </>
+      </BrowserRouter>
     );
   }
 }
 
 export default App;
+// 1.51
