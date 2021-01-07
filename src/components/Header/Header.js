@@ -5,12 +5,29 @@ import logo from "../../logo.svg";
 // Копируем с исходника верстку (для исправления названия - выдиляем слово
 //   нажимаем alt+enter либо ctrl+h для замены)
 
-const Header = () => (
+const Header = (props) => (
   <header className="header">
     <img src={logo} alt="Logo Space X" className="logo" />
     <nav className="main-nav nav">
       <ul className="list">
-        <li className="item">
+        {/* Перебераем то что пришло с пропов */}
+        {/* index - передаем для ключа */}
+        {props.rockets.map((item, index) => (
+          <li key={index} className="item">
+            <a
+              href="/"
+              onClick={(event) => {
+                event.preventDefault();
+                props.changeRocket(item);
+              }}
+              className="item-link"
+            >
+              {item}
+            </a>
+          </li>
+        ))}
+
+        {/* <li className="item">
           <a href="/" className="item-link">
             Falcon 1
           </a>
@@ -29,7 +46,7 @@ const Header = () => (
           <a href="/" className="item-link">
             Updates
           </a>
-        </li>
+        </li> */}
       </ul>
     </nav>
     <nav className="secondary-nav">
