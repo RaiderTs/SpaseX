@@ -8,23 +8,27 @@ const video = {
   other: "space",
 };
 
-function Main({ rocket }) {
+function Main({ rocket, name }) {
   return (
     <section className="main">
-      <h1 className="title">{rocket ? rocket : "Календарь SpaseX"}</h1>
+      <h1 className="title">{
+        name || rocket}
+      </h1>
 
-      {rocket && <div className="video-container">
-        <video
-          className="video"
-          autoPlay
-          loop
-          muted
-          // hesOwnProperty - проверяет есть ли такое свойство в объекте, чере video[rocket] вытаскиваем нужное свойство
-          src={`./video/${
-            video.hasOwnProperty(rocket) ? video[rocket] : video.other
-          }.mp4`}
-        ></video>
-      </div>}
+      {rocket && (
+        <div className="video-container">
+          <video
+            className="video"
+            autoPlay
+            loop
+            muted
+            // hesOwnProperty - проверяет есть ли такое свойство в объекте, чере video[rocket] вытаскиваем нужное свойство
+            src={`./video/${
+              video.hasOwnProperty(rocket) ? video[rocket] : video.other
+            }.mp4`}
+          ></video>
+        </div>
+      )}
     </section>
   );
 }

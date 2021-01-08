@@ -24,6 +24,12 @@
 	overflow: hidden;
 	padding: 30px;
 	text-align: left;
+	transition: 0.25s;
+}
+
+.launches:hover {
+  transform: scale(1.05);
+  box-shadow: 10px 14px 21px 11px rgba(197, 216, 231, 0.25);
 }
 
 .launches-date {
@@ -47,6 +53,7 @@
 	display: block;
 	margin: 0 auto;
 }
+
 
 .launches-title {
 	margin-top: 25px;
